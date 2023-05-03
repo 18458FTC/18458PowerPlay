@@ -12,17 +12,17 @@ import org.firstinspires.ftc.teamcode.commands.drive.teleop.DefaultDriveCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.teleop.SlideMoveManual;
 import org.firstinspires.ftc.teamcode.commands.drive.teleop.SlowDriveCommand;
 import org.firstinspires.ftc.teamcode.commands.example.ConeDropCommand;
-import org.firstinspires.ftc.teamcode.util.GamepadTrigger;
-import org.firstinspires.ftc.teamcode.util.MatchOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
-import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
-import org.firstinspires.ftc.teamcode.subsystems.drive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.Slide;
 import org.firstinspires.ftc.teamcode.subsystems.TurnServo;
+import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.drive.MecanumDrive;
+import org.firstinspires.ftc.teamcode.util.GamepadTrigger;
+import org.firstinspires.ftc.teamcode.util.MatchOpMode;
 
 @Config
 @TeleOp
-public class TeleOpMain extends MatchOpMode {
+public class TeleOpMainJoelSolo extends MatchOpMode {
 
     // Gamepad
     private GamepadEx driverGamepad;
@@ -80,7 +80,6 @@ public class TeleOpMain extends MatchOpMode {
                 .whenPressed(new InstantCommand(slide::slideHigh));
 
          (new GamepadButton(operatorGamepad, GamepadKeys.Button.START))
-//                 .whenReleased()
                 .whenPressed(slide::encoderRecenter);
          new GamepadTrigger(operatorGamepad, GamepadKeys.Trigger.RIGHT_TRIGGER)
                  .whenPressed(new ConeDropCommand(slide, claw));

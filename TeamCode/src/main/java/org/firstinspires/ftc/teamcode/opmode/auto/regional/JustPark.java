@@ -24,7 +24,6 @@ public class JustPark extends MatchOpMode {
     private Drivetrain drivetrain;
     private Slide slide;
     private TagVision tagVision;
-    private TurnServo turnServo;
 
 
     @Override
@@ -33,7 +32,6 @@ public class JustPark extends MatchOpMode {
         drivetrain = new Drivetrain(new MecanumDrive(hardwareMap, telemetry, false), telemetry, hardwareMap);
         drivetrain.init();
         slide = new Slide(telemetry, hardwareMap);
-        turnServo = new TurnServo(telemetry, hardwareMap);
 
         tagVision = new TagVision(hardwareMap,  telemetry);
         while (!isStarted() && !isStopRequested())
@@ -45,7 +43,8 @@ public class JustPark extends MatchOpMode {
         this.matchStart();
     }
 
-    public void matchStart() {tagNum = tagVision.getTag();
+    public void matchStart() {
+        tagNum = tagVision.getTag();
 
 //        SequentialCommandGroup autonGroup;
         switch (tagNum) {
