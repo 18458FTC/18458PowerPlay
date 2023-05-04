@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.commands.drive.teleop.DefaultDriveCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.teleop.SlideMoveManual;
 import org.firstinspires.ftc.teamcode.commands.drive.teleop.SlowDriveCommand;
-import org.firstinspires.ftc.teamcode.commands.example.ConeDropCommand;
+import org.firstinspires.ftc.teamcode.commands.ConeDropCommand;
 import org.firstinspires.ftc.teamcode.util.GamepadTrigger;
 import org.firstinspires.ftc.teamcode.util.MatchOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;

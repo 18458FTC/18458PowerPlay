@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.commands.drive.teleop.DefaultDriveCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.teleop.SlideMoveManual;
 import org.firstinspires.ftc.teamcode.commands.drive.teleop.SlowDriveCommand;
-import org.firstinspires.ftc.teamcode.commands.example.ConeDropCommand;
+import org.firstinspires.ftc.teamcode.commands.ConeDropCommand;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Slide;
 import org.firstinspires.ftc.teamcode.subsystems.TurnServo;
@@ -70,20 +70,19 @@ public class TeleOpMainJoelSolo extends MatchOpMode {
          * OPERATOR
          */
         //todo: Add in slide manual
-        (new GamepadButton(operatorGamepad, GamepadKeys.Button.X))
+        (new GamepadButton(driverGamepad, GamepadKeys.Button.X))
                 .whenPressed(new InstantCommand(slide::slideLow));
-        (new GamepadButton(operatorGamepad, GamepadKeys.Button.A))
+        (new GamepadButton(driverGamepad, GamepadKeys.Button.A))
                 .whenPressed(new InstantCommand(slide::slideGround));
-        (new GamepadButton(operatorGamepad, GamepadKeys.Button.Y))
+        (new GamepadButton(driverGamepad, GamepadKeys.Button.Y))
                 .whenPressed(new InstantCommand(slide::slideMid));
-        (new GamepadButton(operatorGamepad, GamepadKeys.Button.B))
+        (new GamepadButton(driverGamepad, GamepadKeys.Button.B))
                 .whenPressed(new InstantCommand(slide::slideHigh));
-
-         (new GamepadButton(operatorGamepad, GamepadKeys.Button.START))
+         (new GamepadButton(driverGamepad, GamepadKeys.Button.START))
                 .whenPressed(slide::encoderRecenter);
-         new GamepadTrigger(operatorGamepad, GamepadKeys.Trigger.RIGHT_TRIGGER)
+         new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.RIGHT_TRIGGER)
                  .whenPressed(new ConeDropCommand(slide, claw));
-         new GamepadTrigger(operatorGamepad, GamepadKeys.Trigger.LEFT_TRIGGER)
+         new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.LEFT_TRIGGER)
                  .whenPressed(new InstantCommand(claw::clawClose));
 
 //        Button pivotRecenter = (new GamepadButton(operatorGamepad, GamepadKeys.Button.START))

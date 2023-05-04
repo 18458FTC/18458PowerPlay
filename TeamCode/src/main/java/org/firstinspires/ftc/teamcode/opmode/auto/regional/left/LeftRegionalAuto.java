@@ -7,9 +7,8 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.commands.drive.trajectory.sequence.DisplacementCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.trajectory.sequence.TrajectorySequenceContainerFollowCommand;
-import org.firstinspires.ftc.teamcode.commands.example.ConeDropCommand;
+import org.firstinspires.ftc.teamcode.commands.ConeDropCommand;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Slide;
 import org.firstinspires.ftc.teamcode.subsystems.TurnServo;
@@ -20,7 +19,6 @@ import org.firstinspires.ftc.teamcode.subsystems.misc.TagVision;
 import org.firstinspires.ftc.teamcode.trajectorysequence.container.Back;
 import org.firstinspires.ftc.teamcode.trajectorysequence.container.Forward;
 import org.firstinspires.ftc.teamcode.trajectorysequence.container.Pose2dContainer;
-import org.firstinspires.ftc.teamcode.trajectorysequence.container.SetReversed;
 import org.firstinspires.ftc.teamcode.trajectorysequence.container.SplineTo;
 import org.firstinspires.ftc.teamcode.trajectorysequence.container.StrafeLeft;
 import org.firstinspires.ftc.teamcode.trajectorysequence.container.StrafeRight;
