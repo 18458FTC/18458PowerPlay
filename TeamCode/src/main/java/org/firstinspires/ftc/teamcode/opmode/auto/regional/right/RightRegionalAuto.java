@@ -1,13 +1,16 @@
 package org.firstinspires.ftc.teamcode.opmode.auto.regional.right;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.commands.drive.trajectory.StrafeRightCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.trajectory.sequence.DisplacementCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.trajectory.sequence.TrajectorySequenceContainerFollowCommand;
+import org.firstinspires.ftc.teamcode.commands.example.ConeDropCommand;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Slide;
 import org.firstinspires.ftc.teamcode.subsystems.TurnServo;
@@ -123,73 +126,6 @@ public class RightRegionalAuto extends MatchOpMode {
                 static TrajectorySequenceContainer preload = new TrajectorySequenceContainer(Speed::getPreLoadDropConstraints, a, b);
             }
 
-            public static Cycle1Pickup bcycle1Pickup;
-            public static class Cycle1Pickup {
-                public static SetReversed a = new SetReversed(true);
-                public static SplineTo b = new SplineTo(48, -10., 0);
-                public static Back c = new Back(13.7);
-                static TrajectorySequenceContainer cycle1Pickup = new TrajectorySequenceContainer(Speed::getPickupConstraints, a, b, c);
-            }
-
-            public static Cycle1Drop ccycle1Drop;
-            public static class Cycle1Drop {
-                public static SetReversed a = new SetReversed(true);
-                public static Forward b = new Forward(16);
-                public static SplineTo c = new SplineTo(30.9, -13.9, -138);
-                static TrajectorySequenceContainer cycle1Drop = new TrajectorySequenceContainer(Speed::getDropConstraints, a, b, c);
-            }
-
-            public static Cycle2Pickup dcycle2Pickup;
-            public static class Cycle2Pickup {
-                public static SetReversed a = new SetReversed(true);
-                public static SplineTo b = new SplineTo(49.1, -10., 0);
-                public static Back c = new Back(12.1);
-                static TrajectorySequenceContainer cycle2Pickup = new TrajectorySequenceContainer(Speed::getPickupConstraints, a, b, c);
-            }
-
-            public static Cycle2Drop ecycle2Drop;
-            public static class Cycle2Drop {
-                public static SetReversed a = new SetReversed(true);
-                public static Forward b = new Forward(16);
-                public static SplineTo c = new SplineTo(31.3, -13.9, -135);//255
-                static TrajectorySequenceContainer cycle2Drop = new TrajectorySequenceContainer(Speed::getDropConstraints, a, b, c);
-            }
-
-            public static Cycle3Pickup fcycle3Pickup;
-            public static class Cycle3Pickup {
-                public static SetReversed a = new SetReversed(true);
-                public static SplineTo b = new SplineTo(51.5, -10., 0);
-                public static Back c = new Back(12.1);
-                static TrajectorySequenceContainer cycle3Pickup = new TrajectorySequenceContainer(Speed::getPickupConstraints, a, b, c);
-            }
-
-            public static Cycle3Drop gcycle3Drop;
-            public static class Cycle3Drop {
-                public static SetReversed a = new SetReversed(true);
-                public static Forward b = new Forward(15.5);//16
-                public static SplineTo c = new SplineTo(31.3, -13.9, -135);
-                static TrajectorySequenceContainer cycle3Drop = new TrajectorySequenceContainer(Speed::getDropConstraints, a, b, c);
-            }
-
-//            public static Cycle4Pickup hcycle4Pickup;
-//            public static class Cycle4Pickup {
-//                public static SetReversed a = new SetReversed(true);
-//                public static SplineTo b = new SplineTo(51, -8.83, 0);
-//                public static Back c = new Back(14.45);
-//                static TrajectorySequenceContainer cycle4Pickup = new TrajectorySequenceContainer(Speed::getPickupConstraints, a, b, c);
-//            }
-//
-//            public static Cycle4Drop icycle4Drop;
-//            public static class Cycle4Drop {
-//                public static SetReversed a = new SetReversed(true);
-//                public static Forward b = new Forward(16);
-//                public static SplineTo c = new SplineTo(28, -3.5, 132);
-//                static TrajectorySequenceContainer cycle4Drop = new TrajectorySequenceContainer(Speed::getDropConstraints, a, b, c);
-////                public static SetReversed a = new SetReversed(true);
-////                public static Forward b = new Forward(16);
-////                public static SplineTo c = new SplineTo(35.88, -14.34, -135);
-////                static TrajectorySequenceContainer cycle4Drop = new TrajectorySequenceContainer(Speed::getDropConstraints, a, b, c);
-//            }
 
             public static Park jpark;
             public static class Park {
@@ -213,16 +149,16 @@ public class RightRegionalAuto extends MatchOpMode {
                                     new Back(4),
                                     new Turn(45),
 
-                                    new Back(2),
-                                    new StrafeRight(27.),
-                                    new Forward(8)
+                                    new StrafeLeft(12),
+                                    new Back(4)
                             );
                         case MID:
                             return new TrajectorySequenceContainer(
                                     Speed::getParkConstraint,
                                     new Back(6),
                                     new Turn(45),
-                                    new Forward(8)
+
+                                    new Back(3)
                             );
                         default:
                         case RIGHT:
@@ -231,9 +167,8 @@ public class RightRegionalAuto extends MatchOpMode {
                                     new Back(6),
                                     new Turn(45),
 
-                                    new Back(2),
-                                    new StrafeLeft(31),
-                                    new Forward(8)
+                                    new StrafeRight(10),
+                                    new Back(5)
 //                                    Speed::getParkConstraint,
 //                                    new Back(5),
 //                                    new SplineToSplineHeading(x, y, heading, endHeading)
@@ -286,67 +221,12 @@ public class RightRegionalAuto extends MatchOpMode {
                         new ParallelCommandGroup(
                                 new TrajectorySequenceContainerFollowCommand(drivetrain, RightRegionalAutoConstants.Path.PreLoad.preload)
                         ),
+                        new InstantCommand(slide::slideHigh),
+                        new ConeDropCommand (slide, claw),
+                        new InstantCommand(slide::slideResting),
                         new WaitCommand(100),
 
 
-
-                        /* Cycle 1 Pickup */
-                        new ParallelCommandGroup(
-                                new TrajectorySequenceContainerFollowCommand(drivetrain, RightRegionalAutoConstants.Path.Cycle1Pickup.cycle1Pickup)
-                        ),
-//                        new ParallelCommandGroup(
-//                                new InstantCommand(claw::clawClose),
-//                                new DriveForwardCommand(drivetrain, 0.1)
-//                        ),
-//                        new AutoPickConeCommand(slide, claw),
-
-
-
-                        /* Cycle 1 Drop */
-                        new ParallelCommandGroup(
-                                new TrajectorySequenceContainerFollowCommand(drivetrain, RightRegionalAutoConstants.Path.Cycle1Drop.cycle1Drop)
-                        ),
-
-                        /* Cycle 2 Pickup */
-                        new ParallelCommandGroup(
-                                new TrajectorySequenceContainerFollowCommand(drivetrain, RightRegionalAutoConstants.Path.Cycle2Pickup.cycle2Pickup)
-                        ),
-//                        new AutoPickConeCommand(slide, claw),
-
-                        /* Cycle 2 Drop */
-                        new ParallelCommandGroup(
-                                new TrajectorySequenceContainerFollowCommand(drivetrain, RightRegionalAutoConstants.Path.Cycle2Drop.cycle2Drop)
-                        ),
-
-                        /* Cycle 3 Pickup */
-                        new ParallelCommandGroup(
-                                new TrajectorySequenceContainerFollowCommand(drivetrain, RightRegionalAutoConstants.Path.Cycle3Pickup.cycle3Pickup)
-                        ),
-//                        new AutoPickConeCommand(slide, claw),
-
-                        /* Cycle 3 Drop */
-                        new ParallelCommandGroup(
-                                new TrajectorySequenceContainerFollowCommand(drivetrain, RightRegionalAutoConstants.Path.Cycle3Drop.cycle3Drop)
-                        ),
-
-
-//                        /* Cycle 4 Pickup */
-//                        new ParallelCommandGroup(
-//                                new ArmCone2BackCommand(slide, claw, pivot, turnServo),
-//                                new TrajectorySequenceContainerFollowCommand(drivetrain, RightRegionalAutoConstants.Path.Cycle4Pickup.cycle4Pickup,
-//                                        new DisplacementCommand(27, new AutoPickConeCommand(slide, claw)))
-//                        ),
-////                        new AutoPickConeCommand(slide, claw),
-//
-//                        /* Cycle 4 Drop */
-//                        new ParallelCommandGroup(
-//                                new ArmHighFrontCommand(slide, pivot, claw, turnServo,true),
-////                                new ArmMidFrontCommand(slide, pivot, claw, turnServo,true),
-//                                new TrajectorySequenceContainerFollowCommand(drivetrain, RightRegionalAutoConstants.Path.Cycle4Drop.cycle4Drop)
-//                        ),
-//                        new AutoDropConeCommand(claw, slide, pivot, true),
-
-                        /* Park */
                         new SequentialCommandGroup(//Y is this not working...
                                 new TrajectorySequenceContainerFollowCommand(drivetrain, RightRegionalAutoConstants.Path.Park.getPark(finalX))
                         ),
